@@ -1,6 +1,13 @@
 require 'spec_helper'
 require 'generators/migrations'
 require 'fileutils'
+require 'rake'
+require 'active_record'
+
+class Auditrail::Generators::MigrationsGenerator
+  def migrate
+  end
+end
 
 describe Auditrail::Generators::MigrationsGenerator do
   context "migration" do
@@ -9,6 +16,11 @@ describe Auditrail::Generators::MigrationsGenerator do
   
     before do
       subject.start([] , :destination_root => destination)
+      @rake = Rake::Application.new
+      Rake.application = @rake
+      Rake.application.rake_require "active_record/railties/databases"
+      Rake::Task.define_task(:environment)
+      @rake ["db:migrate"].invoke
     end
   
     after do
