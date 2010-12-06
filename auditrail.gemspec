@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "auditrail"
   s.add_dependency("activerecord", "~> 3.0.1")
+  s.add_dependency("railties", "~> 3.0.1")
   s.add_development_dependency("rspec-rails", "~> 2.0.1")
 
   s.files         = `git ls-files`.split("\n")

@@ -11,9 +11,6 @@ module Auditrail
   end
 
   module InstanceMethods
-    include ActiveSupport::Callbacks
-
-    #define_callbacks :save, :create, :update
 
   end
 end

@@ -5,11 +5,13 @@ end
 
 describe TestModel do
   
-  subject { TestModel }
+  context 'its class should be auditable' do
+    subject { TestModel }
 
-  describe 'a newly created controller' do
     it 'contains a auditable method' do
       subject.should respond_to(:auditable)
     end
   end
+
+  context 'default save callback behavior'
 end
