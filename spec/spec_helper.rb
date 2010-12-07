@@ -8,7 +8,9 @@ require 'fileutils'
 require 'rake'
 
 ENV["RAILS_ENV"] = "test"
-module Rails3JQueryAutocomplete
+ENV['RAILS_ROOT'] ||= File.dirname(__FILE__) + '/tmp'
+
+module Auditrail
   class Application < Rails::Application; end 
 end
 
