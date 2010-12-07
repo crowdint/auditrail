@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "auditrail"
   s.version     = Auditrail::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Luis Galaviz", "Emmanuel Delgado"]
+  s.email       = ["emmanuel@crowdint.com", "luis.galaviz@crowdint.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Audits models using serialization}
+  s.description = %q{Audits models using serialization}
 
   s.rubyforge_project = "auditrail"
   s.add_dependency("activerecord", "~> 3.0.1")
