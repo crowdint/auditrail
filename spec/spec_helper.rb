@@ -2,14 +2,13 @@ $:.unshift File.join(File.dirname(__FILE__))
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'auditrail'
-require 'active_record'
+require 'generators/migrations'
+require 'rails'
+require 'fileutils'
+require 'rake'
 
-=begin
-::ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-  ::ActiveRecord::Schema.define(:version => 1) do
-    create_table :products do |t|
-      t.column :name, :string
-  end
+ENV["RAILS_ENV"] = "test"
+module Rails3JQueryAutocomplete
+  class Application < Rails::Application; end 
 end
-=end
 

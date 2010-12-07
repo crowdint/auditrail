@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency("activerecord", "~> 3.0.1")
   s.add_dependency("railties", "~> 3.0.1")
   s.add_development_dependency("rspec-rails", "~> 2.0.1")
+  s.add_development_dependency("sqlite3-ruby")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
