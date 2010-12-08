@@ -10,14 +10,14 @@ Currently this gem is under development.
 
 First run the generator to create the *audits* table:
   
-  rails g auditrail:create
+    rails g auditrail:create
 
 This will create a migration. Now Simply add *auditable* to your models 
 like this:
 
-  class User < ActiveRecord::Base
-    auditable
-  end
+    class User < ActiveRecord::Base
+      auditable
+    end
 
 ### Options
 
@@ -43,7 +43,7 @@ Simply run:
 
 # Changelog
 
-We're still working on an usuable version.
+Nothing yet.
 
 # About the Author
 
