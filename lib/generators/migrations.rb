@@ -14,9 +14,6 @@ module Auditrail
       def migrate
         rake "db:migrate"
       end
-      
-      private
-      
     end
   end
 end

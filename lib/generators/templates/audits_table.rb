@@ -1,9 +1,9 @@
 class CreateAudits < ActiveRecord::Migration
   def self.up
     create_table :audits do |t|
-      t.string :after
-      t.string :before
-
+      t.string :dumped_changes
+      t.string :action
+      
       t.timestamps
     end
   end
