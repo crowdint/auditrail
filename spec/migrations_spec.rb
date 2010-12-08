@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'support/active_record'
 
-#ENV['SCHEMA'] = "spec/tmp/db/schema.rb"
+ENV['SCHEMA'] = "spec/tmp/db/schema.rb"
 
 describe Auditrail::Generators::MigrationsGenerator do
 
@@ -26,8 +26,10 @@ describe Auditrail::Generators::MigrationsGenerator do
       Rake.application.rake_require "rails/tasks/misc"
       Rake::Task.define_task(:environment)
       
-      rake_app["db:create"].invoke
-      rake_app["db:migrate"].invoke
+      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
+      ActiveRecord::Migrator.migrate("spec/tmp/db/migrate/", ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
+      rake_app["db:migrate"].invoke if ActiveRecord::Base.schema_format == :ruby
+
     end
   
     after do
@@ -46,8 +48,4 @@ describe Auditrail::Generators::MigrationsGenerator do
     end
   end
   
-  private
-    def fake_rails_root
-      File.join(File.dirname(__FILE__), 'rails_root')
-    end
 end

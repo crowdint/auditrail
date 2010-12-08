@@ -8,7 +8,7 @@ require 'fileutils'
 require 'rake'
 
 ENV["RAILS_ENV"] = "test"
-ENV['RAILS_ROOT'] ||= File.dirname(__FILE__) + '/tmp'
+ENV["RAILS_ROOT"] = "tmp"
 
 module Auditrail
   class Application < Rails::Application; end 
