@@ -3,6 +3,9 @@ class CreateAudits < ActiveRecord::Migration
     create_table :audits do |t|
       t.string :dumped_changes
       t.string :action
+      t.string :model_changed
+      t.integer :element_id
+      t.string :invoker
       
       t.timestamps
     end
