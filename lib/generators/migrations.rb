@@ -10,10 +10,6 @@ module Auditrail
         file_name = ::ActiveRecord::Generators::Base.next_migration_number("db/migrate")
         copy_file("audits_table.rb", "db/migrate/#{file_name.to_s}_create_audits.rb")
       end
-      
-      def migrate
-        rake "db:migrate"
-      end
     end
   end
 end
