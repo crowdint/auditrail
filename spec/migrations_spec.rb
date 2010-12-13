@@ -9,6 +9,6 @@ describe Auditrail::Generators::MigrationsGenerator do
   after {clean_tmp_path}
   
   it "should generate the migration for the audits tabble into the db/migrate folder" do
-    Dir.glob(File.join(File.expand_path("#{DESTINATION}/db/migrate"), "*_create_audits.rb")).should have_exactly(1).items
+    Dir.glob(File.join(File.expand_path(File.join(DESTINATION, "db", "migrate")), "*_create_audits.rb")).should have_exactly(1).items
   end
 end

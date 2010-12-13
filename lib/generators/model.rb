@@ -7,7 +7,7 @@ module Auditrail
       source_root File.expand_path("templates", File.dirname(__FILE__))
       
       def prepare
-        copy_file("audit_model.rb", "app/models/audit.rb")
+        copy_file("audit_model.rb", File.join("app", "models", "audit.rb"))
       end
     end
   end

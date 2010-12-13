@@ -8,7 +8,7 @@ describe Auditrail::Generators::ModelGenerator do
   after {clean_tmp_path}
 
   it "should generate the Audit model" do
-    file = File.expand_path("#{DESTINATION}/app/models/audit.rb")
+    file = File.expand_path(File.join(DESTINATION, "app", "models", "audit.rb"))
     File.exist?(file).should be(true)
   end 
 end

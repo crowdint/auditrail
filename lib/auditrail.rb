@@ -9,21 +9,28 @@ module Auditrail
     def auditable(*options, &block)
       
       class_eval do
-        before_create :if => "changed?" do
-          track_changes(:creating, options, &block)
+        options = options.extract_options!
+        attributes = options[:for_attributes]
+        before_create do
+          track_changes(:creating, &block) if attributes_changed?(*attributes)
         end
-        before_update :if => "changed?" do
-          track_changes(:updating, options, &block)
+        before_update do
+          track_changes(:updating, &block) if attributes_changed?(*attributes)
         end
         after_save do
-          save_tracked_changes
+          save_tracked_changes if attributes_changed?(*attributes)
         end
       end
     end
   end
 
   module InstanceMethods
+    
     private
+    def attributes_changed?(*options)
+      (options - changes.keys) != options || options.empty?
+    end
+    
     def track_changes(*options, &block)
       action = options[0]
       @audit = Audit.new
@@ -36,6 +43,10 @@ module Auditrail
     def save_tracked_changes
       @audit.element_id = id
       @audit.save
+    end
+    
+    def class_elements
+      
     end
   end
 end

@@ -10,7 +10,8 @@ require 'rake'
 
 ENV["RAILS_ENV"] = "test"
 ENV["RAILS_ROOT"] = "tmp"
-ENV['SCHEMA'] = "spec/tmp/db/schema.rb"
+DESTINATION = File.expand_path(File.join("spec","tmp"))
+ENV['SCHEMA'] = File.join(DESTINATION, "db", "schema.rb")
 
 module Auditrail
   class Application < Rails::Application; end 
