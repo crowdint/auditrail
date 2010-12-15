@@ -12,11 +12,20 @@ describe 'A test class' do
 
     # the blocked passed to auditable will determine the action invoker
     # that will be serialized
-    @test_class.send(:auditable) do
-      465
+    @test_class.class_eval do
+      auditable do
+        # When using the options by_user you can also pass the parameters as a block.
+        # by_user 465
+        # or
+        # by_user do
+        #  465
+        # end
+
+        by_user 465
+      end
     end
   end
-  
+
   after do
     clean_tmp_path
     connection_close
@@ -61,7 +70,7 @@ describe 'A test class' do
       end
 
     end
-    
+
     context 'updates an existing object' do
       it "should receive a creating status" do
         instance = @test_class.first
@@ -72,62 +81,74 @@ describe 'A test class' do
     end 
 
   end
-  
+
   context "basic query content behavior" do
-    
+
     before do
-      @user_class.send(:auditable)
+      @user_class.class_eval do
+        auditable
+      end
       10.times do
         @test_class.create(:name => "Text")
       end
+
       5.times do |item_number|
         @user_class.create(:name => "User #{item_number}", :age => 15 + item_number, :email => "abc#{item_number}@abc.com")
       end
     end
-    
+
     it "should find the audits by model" do
       @audit_class.model_filter(:user).should have_exactly(5).items
       @audit_class.model_filter(:test).should have_exactly(10).items
       @audit_class.model_filter(:admin).should have_exactly(0).items
     end
-    
+
     it "should find the audits by action" do
       5.times do |item_number|
         test = @test_class.first
         test.name = "Text changed #{item_number}"
         test.save
       end
+
       3.times do |item_number|
         user = @user_class.first
         user.name = "User 1 name changed #{item_number}"
         user.save
       end
+
       @audit_class.action_filter(:creating).should have_exactly(15).items
       @audit_class.action_filter(:updating).should have_exactly(8).items
       @audit_class.action_filter(:other).should have_exactly(0).items
     end
   end
-  
+
   context "track changes only for selected attributes" do
     before do
-      @user_class.send(:auditable, :for_attributes => ["name", "email"])
+      @user_class.class_eval do
+        auditable do
+          for_attributes "name", "email"
+        end
+      end
       @user_class.create(:name => "Marco", :age => 15, :email => "marco@abc.com")
     end
-    
+
     it "should track only for name and email" do
       user = @user_class.first
       user.name = "Polo"
       user.save
+
       user = @user_class.first
       user.email = "polo@abc.com"
       user.save
+
       @audit_class.all.should have_exactly(3).items
     end
-    
+
     it "should not track changes for age" do
       user = @user_class.first
       user.age = 16
       user.save
+
       @audit_class.all.should have_exactly(1).items
     end
   end

@@ -2,6 +2,13 @@
 
 An easy and unobtrusive way to track changes on Active Record models.
 
+
+## How it works
+
+This will generate a table named *audits* where we will save an audit entry each time an audited model change.
+
+You can find an example application you can use for testing [here](https://github.com/MGalv/auditrails_test_app).
+
 ## Installing
 
 Currently this gem is under development.
@@ -21,9 +28,29 @@ like this:
 
 ### Options
 
-None yet, but we want to let the implementor configure where to store the audits, 
-what the audit table name will be and filter what data you want to audit.
+You can define your options using a block.
 
+With the option *for_attributes* you can select the fields that you want to audit. For example:
+
+auditable do
+  for_attributes "name", "email"
+end
+
+This will save an audit each time the fields "name" or "email" change.
+
+With the option *by_name* you can save the action invoker.
+
+auditable do
+  by_user "user"
+end
+
+Also, you can call the method *by_user* as a block. For example:
+
+auditable do
+  by_user do
+    "user"
+  end
+end
 
 # Development
 
@@ -44,6 +71,11 @@ Simply run:
 # Changelog
 
 Nothing yet.
+
+# To Do
+
+* Let the implementor configure where to store the audits.
+* What the audit table name will be.
 
 # About the Author
 
