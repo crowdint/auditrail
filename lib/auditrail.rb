@@ -5,12 +5,13 @@ require 'generators/migrations'
 require 'generators/model'
 
 module Auditrail
+
   extend ActiveSupport::Concern
 
   module ClassMethods
-    
+
     class AuditOptions
-      
+
       def initialize(&block)
         instance_eval &block if block
       end
@@ -31,6 +32,7 @@ module Auditrail
       def for_attributes(*attributes)
         @attributes = attributes
       end
+
     end
     
     def auditable(&block)
@@ -49,7 +51,9 @@ module Auditrail
           save_tracked_changes if attributes_changed?(*audit_options.attributes)
         end
       end
+
     end
+
   end
 
   module InstanceMethods
@@ -74,10 +78,8 @@ module Auditrail
       @audit.save
     end
     
-    def class_elements
-      
-    end
   end
+
 end
 
 ActiveRecord::Base.send(:include, Auditrail)
