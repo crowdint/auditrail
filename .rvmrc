@@ -1,1 +1,1 @@
-rvm @auditrail
+rvm 1.9.2@auditrail --create

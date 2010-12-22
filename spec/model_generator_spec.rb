@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'support/active_record'
 
 describe Auditrail::Generators::ModelGenerator do
   include Auditrail::Test::ActiveRecord
