@@ -3,6 +3,7 @@ require 'active_support/concern'
 require 'yaml'
 require 'generators/migrations'
 require 'generators/model'
+require 'audit_options'
 
 module Auditrail
 
@@ -10,31 +11,6 @@ module Auditrail
 
   module ClassMethods
 
-    class AuditOptions
-
-      def initialize(&block)
-        instance_eval &block if block
-      end
-      
-      def user
-        @user
-      end
-      
-      def attributes
-        @attributes
-      end
-      
-      private
-      def by_user(user = nil, &block)
-        @user = block ? block.call : user
-      end
-      
-      def for_attributes(*attributes)
-        @attributes = attributes
-      end
-
-    end
-    
     def auditable(&block)
       audit_options = block ? AuditOptions.new(&block) : AuditOptions.new
 
@@ -60,7 +36,7 @@ module Auditrail
 
     private
     def attributes_changed?(*options)
-      (options - changes.keys) != options || options.empty?
+      ((options - changes.keys) != options || options.empty?) & changed?
     end
     
     

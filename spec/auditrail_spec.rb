@@ -72,13 +72,22 @@ describe 'A test class' do
     end
 
     context 'updates an existing object' do
-      it "should receive a creating status" do
+      it "should receive an updating status" do
         instance = @test_class.first
         instance.name = "Text change"
         instance.save
         @audit_class.last.action.should eq("updating")
       end
-    end 
+    end
+    
+    context 'updates an existing object' do
+      it "should no receive more elements when there is no changes" do
+        lambda{
+          instance = @test_class.first
+          instance.name = "Text"
+          instance.save}.should change(@audit_class, :count).by(0)
+      end
+    end
 
   end
 
