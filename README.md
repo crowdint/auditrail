@@ -1,5 +1,5 @@
 # auditrail
-An easy and unobtrusive way to track changes on Active Record models.
+An easy and unobtrusive way to track changes on Active Record models (only tested with Ruby 1.9.2).
 
 
 ## How it works
@@ -83,6 +83,10 @@ Nothing yet.
 * Refactor auditrail.rb and its tests.
 * Let the implementor configure where to store the audits.
 * What the audit table name will be.
+
+# Changelog
+
+* 0.0.4 Fixed validation to check unchanged attributes when updating.
 
 # About the Author
 [Crowd Interactive](http://www.crowdint.com) is an American web design and development 
