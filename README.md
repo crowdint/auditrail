@@ -80,6 +80,7 @@ Nothing yet.
 
 
 # To Do
+* Improve the way the changes are stored when the table field length is exceeded.
 * Refactor auditrail.rb and its tests.
 * Let the implementor configure where to store the audits.
 * What the audit table name will be.
